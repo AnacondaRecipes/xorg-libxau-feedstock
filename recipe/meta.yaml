@@ -29,7 +29,8 @@ requirements:
     - m2-base                       # [win]
     - {{ compiler("c") }}           # [unix]
     - {{ compiler("m2w64_c") }}     # [win]
-    - make
+    - make                          # [unix]
+    - m2-make                       # [win]
     - gettext                       # [unix]
   host:
     - xorg-util-macros
