@@ -28,9 +28,7 @@ requirements:
     - pkg-config                    # [not win]
     - m2-base                       # [win]
     - {{ compiler("c") }}           # [unix]
-    - {{ stdlib("c") }}             # [unix]
     - {{ compiler("m2w64_c") }}     # [win]
-    - {{ stdlib("m2w64_c") }}       # [win]
     - make
     - gettext                       # [unix]
   host:
