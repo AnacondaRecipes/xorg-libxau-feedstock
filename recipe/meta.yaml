@@ -3,7 +3,6 @@
 {% set name = "xorg-" ~ xorg_name %}
 {% set version = "1.0.12" %}
 {% set sha256 = "74d0e4dfa3d39ad8939e99bda37f5967aba528211076828464d2777d477fc0fb" %}
-{% set am_version = "1.16" %} # keep synchronized with build.sh
 
 package:
   name: {{ name|lower }}
@@ -28,10 +27,9 @@ requirements:
     - pkg-config                    # [not win]
     - m2-base                       # [win]
     - {{ compiler("c") }}           # [unix]
-    - {{ stdlib("c") }}             # [unix]
     - {{ compiler("m2w64_c") }}     # [win]
-    - {{ stdlib("m2w64_c") }}       # [win]
-    - make
+    - make                          # [unix]
+    - m2-make                       # [win]
     - gettext                       # [unix]
   host:
     - xorg-util-macros
@@ -41,6 +39,7 @@ test:
   commands:
     {% set lib_idents = [ "Xau" ] %}
     {% for lib_ident in lib_idents %}
+    - test -f $PREFIX/include/X11/{{ lib_ident }}th.h  # [unix]
     - test -f $PREFIX/lib/lib{{ lib_ident }}.dylib  # [osx]
     - test -f $PREFIX/lib/lib{{ lib_ident }}.so  # [linux]
     - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.dll.a exit /b 1  # [win]
@@ -49,6 +48,8 @@ test:
 
 about:
   home: https://www.x.org/
+  dev_url: https://gitlab.freedesktop.org/xorg/lib/libxau
+  doc_url: https://gitlab.freedesktop.org/xorg/lib/libxau
   license: MIT
   license_family: MIT
   license_file: COPYING
