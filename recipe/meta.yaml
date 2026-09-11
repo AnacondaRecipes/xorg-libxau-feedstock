@@ -14,22 +14,16 @@ source:
 
 build:
   number: 0
+  skip: true  # [win]
   detect_binary_files_with_prefix: true
   run_exports:
     - {{ pin_subpackage(name|lower) }}
 
 requirements:
   build:
-    - m2-autoconf                   # [win]
-    - m2-automake{{ am_version }}   # [win]
-    - m2-libtool                    # [win]
-    - m2-pkg-config                 # [win]
     - pkg-config                    # [not win]
-    - m2-base                       # [win]
     - {{ compiler("c") }}           # [unix]
-    - {{ compiler("m2w64_c") }}     # [win]
     - make                          # [unix]
-    - m2-make                       # [win]
     - gettext                       # [unix]
   host:
     - xorg-util-macros
